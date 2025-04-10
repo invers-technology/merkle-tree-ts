@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "poseidon-h": "^0.0.3"
+    "poseidon-h": "^0.0.4"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",

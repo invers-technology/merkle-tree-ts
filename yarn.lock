@@ -1828,10 +1828,10 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-poseidon-h@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/poseidon-h/-/poseidon-h-0.0.3.tgz#73c5730f1c6389ec9cb8253b589f39375bc33fb8"
-  integrity sha512-isBR2axqzpXH5DfkC9iuctjerngWgRlz9AVdqxr0IrJIEIaPz8U1wxRxXmtO9ONoax1OgAz3uQ2zKi+PxorAmw==
+poseidon-h@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/poseidon-h/-/poseidon-h-0.0.4.tgz#dd10881219fdcedde970e63f8087c91ed6d55193"
+  integrity sha512-oOINgJQaCugQdZTH3IFul+RvV9o5SOafd5xpQkb2MBJLYS4yNs+sj8UEaodtYYsWae3i2HIldLaQTfWRA99iLg==
 
 prettier@^3.5.3:
   version "3.5.3"
