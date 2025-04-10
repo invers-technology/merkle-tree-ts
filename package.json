@@ -4,10 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint src tests",
+    "fmt": "prettier --write .",
+    "fmt:check": "prettier --check .",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "poseidon-h": "^0.0.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "prettier": "^3.5.3",
+    "ts-jest": "^29.3.1",
+    "typescript": "^5.8.3"
+  }
 }
