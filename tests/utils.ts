@@ -2,9 +2,9 @@ import { LeafInputs, Leaf } from "../src";
 import { poseidon, randomFieldElement } from "poseidon-h";
 
 class TestLeaf implements LeafInputs {
-  private inputs: bigint[];
+  private inputs: [bigint, bigint, bigint];
 
-  constructor(inputs: bigint[]) {
+  constructor(inputs: [bigint, bigint, bigint]) {
     this.inputs = inputs;
   }
 

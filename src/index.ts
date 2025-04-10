@@ -1,6 +1,6 @@
 import { poseidon } from "poseidon-h";
 import { Leaf, LeafInputs, OrderedLeaf } from "./leaf";
-
+import { MerkleProof, Binary } from "./proof";
 export * from "./leaf";
 
 export class FullMerkleTree {
@@ -33,6 +33,16 @@ export class FullMerkleTree {
     return root[0];
   }
 
+  prove(leaf: Leaf): Leaf[] {
+    const index = this.orderedLeaves.findIndex(({ leaf: l }) => l === leaf);
+    if (index === -1) {
+      throw new Error("Leaf not found");
+    }
+    const path = this.merklePath(leaf);
+    const witness = [];
+    return [];
+  }
+
   getLeaves(): Leaf[] {
     this.orderedLeaves.sort((a, b) => a.index - b.index);
     return this.orderedLeaves.map(({ leaf }) => leaf);
@@ -42,5 +52,15 @@ export class FullMerkleTree {
     return Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
       arr.slice(i * size, i * size + size),
     );
+  }
+
+  private merklePath(leaf: Leaf): Binary[] {
+    const result = this.orderedLeaves.find(({ leaf: l }) => l === leaf);
+    if (!result) {
+      throw new Error("Leaf not found");
+    }
+    const { index } = result;
+    const path = (index >>> 0).toString(2).split("");
+    return path.map((bit) => (bit === "0" ? "0" : "1"));
   }
 }
