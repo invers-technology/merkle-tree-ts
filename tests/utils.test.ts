@@ -1,4 +1,4 @@
-import { chunk, toBinary } from "../src/utils";
+import { chunk, toBinary, toDecimal } from "../src/utils";
 
 describe("Utils", () => {
   it("should chunk an array", () => {
@@ -31,5 +31,14 @@ describe("Utils", () => {
 
     expect(binary).toEqual(["0", "0", "1"]);
     expect(binary2).toEqual(["0", "0", "0", "1", "0", "0", "0", "1"]);
+  });
+
+  it("should convert a binary array to a decimal", () => {
+    const random = Math.floor(Math.random() * 1000);
+    const depth = Math.ceil(Math.log2(random));
+    const binary = toBinary(random, depth);
+    const decimal = toDecimal(binary);
+
+    expect(decimal).toEqual(random);
   });
 });

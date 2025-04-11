@@ -20,4 +20,13 @@ describe("Merkle Tree", () => {
 
     expect(root).toBe(root2);
   });
+
+  it("should prove a leaf", () => {
+    const leaves = dummyLeaves(17);
+    const merkleTree = new FullMerkleTree(leaves);
+    const proof = merkleTree.prove(leaves[13].hash());
+    const verified = merkleTree.verify(proof);
+
+    expect(verified).toBe(true);
+  });
 });
