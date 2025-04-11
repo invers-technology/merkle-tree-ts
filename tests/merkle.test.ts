@@ -1,5 +1,5 @@
 import { FullMerkleTree } from "../src";
-import { dummyLeaves } from "./utils";
+import { dummyLeaves } from "./helper";
 
 describe("Merkle Tree", () => {
   it("should create a merkle tree with leaves", () => {

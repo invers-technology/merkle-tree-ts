@@ -2,6 +2,7 @@ import { poseidon } from "poseidon-h";
 import { Leaf, LeafInputs, OrderedLeaf } from "./leaf";
 import { MerkleProof, Binary } from "./proof";
 export * from "./leaf";
+import { chunk, toBinary } from "./utils";
 
 export class FullMerkleTree {
   private depth: number;
@@ -27,31 +28,25 @@ export class FullMerkleTree {
   root(): Leaf {
     let root = this.getLeaves();
     for (let i = 0; i < this.depth; i++) {
-      const chunks = this.chunk(root, 2);
+      const chunks = chunk(root, 2);
       root = chunks.map(([a, b]) => poseidon([a, b]));
     }
     return root[0];
   }
 
-  prove(leaf: Leaf): Leaf[] {
+  prove(leaf: Leaf): MerkleProof {
     const index = this.orderedLeaves.findIndex(({ leaf: l }) => l === leaf);
     if (index === -1) {
       throw new Error("Leaf not found");
     }
     const path = this.merklePath(leaf);
-    const witness = [];
-    return [];
+    const witness: Leaf[] = [];
+    return { path, witness, leaf, root: this.root() };
   }
 
   getLeaves(): Leaf[] {
     this.orderedLeaves.sort((a, b) => a.index - b.index);
     return this.orderedLeaves.map(({ leaf }) => leaf);
-  }
-
-  private chunk(arr: any[], size: number): any[][] {
-    return Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
-      arr.slice(i * size, i * size + size),
-    );
   }
 
   private merklePath(leaf: Leaf): Binary[] {
@@ -60,7 +55,6 @@ export class FullMerkleTree {
       throw new Error("Leaf not found");
     }
     const { index } = result;
-    const path = (index >>> 0).toString(2).split("");
-    return path.map((bit) => (bit === "0" ? "0" : "1"));
+    return toBinary(index, this.depth);
   }
 }

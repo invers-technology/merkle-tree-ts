@@ -6,4 +6,5 @@ export interface MerkleProof {
   path: Binary[];
   witness: Leaf[];
   leaf: Leaf;
+  root: Leaf;
 }
