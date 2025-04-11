@@ -22,13 +22,11 @@ class TestLeaf implements LeafInputs {
 }
 
 export const dummyLeaves = (n: number) => {
-  return Array.from(
-    { length: n },
-    () =>
-      new TestLeaf([
-        randomFieldElement(),
-        randomFieldElement(),
-        randomFieldElement(),
-      ]),
+  return Array.from({ length: n }, () =>
+    new TestLeaf([
+      randomFieldElement(),
+      randomFieldElement(),
+      randomFieldElement(),
+    ]).hash(),
   );
 };

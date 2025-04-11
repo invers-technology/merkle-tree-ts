@@ -13,6 +13,47 @@ A merkle tree implementation with poseidon hash and circom circuit.
 $ npm i merkle-t
 ```
 
+## Usage
+
+```ts
+import { MerkleTree, LeafInputs, Leaf } from "merkle-t";
+import { poseidon, randomFieldElement } from "poseidon-h";
+
+class NyLeaf implements LeafInputs {
+  private inputs: [bigint, bigint, bigint];
+
+  constructor(inputs: [bigint, bigint, bigint]) {
+    this.inputs = inputs;
+  }
+
+  hash(): Leaf {
+    return poseidon(this.inputs);
+  }
+
+  zeroHash(): Leaf {
+    return poseidon(this.inputs.map(() => BigInt(0)));
+  }
+
+  toInputs(): bigint[] {
+    return this.inputs;
+  }
+}
+
+const leaves = Array.from({ length: n }, () =>
+  new TestLeaf([
+    randomFieldElement(),
+    randomFieldElement(),
+    randomFieldElement(),
+  ]).hash(),
+);
+
+const merkleTree = new MerkleTree(leaves, 3);
+const proof = merkleTree.prove(leaves[13]);
+const isValid = merkleTree.verify(proof);
+
+expect(isValid).toBe(true);
+```
+
 ## Test
 
 ```shell
