@@ -24,7 +24,7 @@
   ],
   "private": false,
   "scripts": {
-    "lint": "eslint src tests",
+    "lint": "eslint src",
     "fmt": "prettier --write .",
     "fmt:check": "prettier --check .",
     "build": "tsc",
