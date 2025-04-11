@@ -1,18 +1,36 @@
 {
-  "name": "merkle-tree-ts",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "merkle-t",
+  "version": "0.0.2",
+  "author": {
+    "name": "Ash Whitehat",
+    "url": "https://github.com/ashwhitehat"
+  },
+  "description": "Merkle Tree with Poseidon Hash in TypeScript",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:inverse-technology/merkle-tree-ts.git"
+  },
+  "homepage": "https://github.com/inverse-technology/merkle-tree-ts",
+  "keywords": [
+    "merkle-tree",
+    "merkle-proof",
+    "typescript"
+  ],
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "private": false,
   "scripts": {
     "lint": "eslint src tests",
     "fmt": "prettier --write .",
     "fmt:check": "prettier --check .",
     "build": "tsc",
+    "prepare": "rm -rf dist && yarn build",
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "poseidon-h": "^0.0.4"
   },
