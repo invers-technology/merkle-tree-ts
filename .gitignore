@@ -1,2 +1,4 @@
 node_modules
 dist
+merkle_js
+*.r1cs

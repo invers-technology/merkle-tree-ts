@@ -23,12 +23,18 @@ class TestLeaf implements LeafInputs {
   }
 }
 
-export const dummyLeaves = (n: number) => {
-  return Array.from({ length: n }, () =>
-    new TestLeaf([
-      randomFieldElement(),
-      randomFieldElement(),
-      randomFieldElement(),
-    ]).hash(),
+export const dummyInputs = (n: number): LeafInputs[] => {
+  return Array.from(
+    { length: n },
+    () =>
+      new TestLeaf([
+        randomFieldElement(),
+        randomFieldElement(),
+        randomFieldElement(),
+      ]),
   );
+};
+
+export const dummyLeaves = (n: number) => {
+  return dummyInputs(n).map((inputs) => inputs.hash());
 };
