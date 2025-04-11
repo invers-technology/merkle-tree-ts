@@ -1,15 +1,16 @@
 import { Leaf, LeafInputs, OrderedLeaf } from "./leaf";
-import { MerkleTree } from "./tree";
+import { MerkleTree, MerkleTreeOptions } from "./tree";
 
-export { Leaf, LeafInputs, OrderedLeaf, MerkleTree };
+export { Leaf, LeafInputs, OrderedLeaf, MerkleTree, MerkleTreeOptions };
 
 export class FullMerkleTree extends MerkleTree {
   private leavesInputs: LeafInputs[];
 
-  constructor(leavesInputs: LeafInputs[]) {
+  constructor(leavesInputs: LeafInputs[], options?: MerkleTreeOptions) {
     super(
       leavesInputs.map((leafInput) => leafInput.hash()),
       leavesInputs.length,
+      options,
     );
     this.leavesInputs = leavesInputs;
   }

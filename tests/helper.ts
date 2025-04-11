@@ -1,10 +1,12 @@
 import { LeafInputs, Leaf } from "../src";
 import { poseidon, randomFieldElement } from "poseidon-h";
 
-class TestLeaf implements LeafInputs {
-  private inputs: [bigint, bigint, bigint];
+type Inputs = [bigint, bigint, bigint];
 
-  constructor(inputs: [bigint, bigint, bigint]) {
+class TestLeaf implements LeafInputs {
+  private inputs: Inputs;
+
+  constructor(inputs: Inputs) {
     this.inputs = inputs;
   }
 
@@ -16,7 +18,7 @@ class TestLeaf implements LeafInputs {
     return poseidon(this.inputs.map(() => BigInt(0)));
   }
 
-  toInputs(): bigint[] {
+  toInputs(): Inputs {
     return this.inputs;
   }
 }

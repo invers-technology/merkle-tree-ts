@@ -3,12 +3,20 @@ import { Leaf, OrderedLeaf } from "./leaf";
 import { Binary, MerkleProof } from "./proof";
 import { chunk, toBinary, toDecimal, zip } from "./utils";
 
+export interface MerkleTreeOptions {
+  depth?: number;
+}
+
 export class MerkleTree {
   public depth: number;
   public orderedLeaves: OrderedLeaf[];
 
-  constructor(leaves: Leaf[], inputsLength: number) {
-    this.depth = Math.ceil(Math.log2(leaves.length));
+  constructor(
+    leaves: Leaf[],
+    inputsLength: number,
+    options?: MerkleTreeOptions,
+  ) {
+    this.depth = options?.depth ?? Math.ceil(Math.log2(leaves.length));
     const diff = Math.pow(2, this.depth) - leaves.length;
     this.orderedLeaves = leaves.map((leaf, index) => ({
       index,
