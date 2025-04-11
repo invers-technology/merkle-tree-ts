@@ -25,7 +25,7 @@ describe("Merkle Tree", () => {
     const leaves = dummyLeaves(17);
     const merkleTree = new MerkleTree(leaves, 3);
     const proof = merkleTree.prove(leaves[13]);
-    const isValid = merkleTree.verify(proof);
+    const isValid = MerkleTree.verifyProof(proof);
 
     expect(isValid).toBe(true);
   });

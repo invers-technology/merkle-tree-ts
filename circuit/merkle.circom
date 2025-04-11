@@ -2,16 +2,18 @@ pragma circom 2.0.0;
 
 include "../node_modules/circomlib/circuits/poseidon.circom";
 
-template MerkleTree() {
-    signal input inputs[3];
+template MerkleTree(nInputs, nDepth) {
+    signal input inputs[nInputs];
     signal input leaf;
-    signal input path;
-    signal output root;
-    component poseidon = Poseidon(3);
+    signal input path[nDepth];
+    signal input witness[nDepth];
 
+    signal output root;
+
+    component poseidon = Poseidon(nInputs);
     poseidon.inputs <== inputs;
 
     root <== poseidon.out;
 }
 
-component main = MerkleTree();
+component main = MerkleTree(3, 2);
