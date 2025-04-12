@@ -1,4 +1,3 @@
-import { poseidon } from "poseidon-h";
 import path from "path";
 import { dummyInputs } from "./helper";
 import { FullMerkleTree, MerkleTree } from "../src";
@@ -19,9 +18,8 @@ describe("Circuit", () => {
       path: merklePath,
       witness: merkleWitness,
     });
-    const hash = poseidon(inputs[0].toInputs());
 
-    await circuit.assertOut(witness, { root: hash });
+    await circuit.assertOut(witness, { root });
     expect(MerkleTree.verify(root, leaf, merklePath, merkleWitness)).toEqual(
       true,
     );
