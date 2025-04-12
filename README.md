@@ -19,7 +19,7 @@ $ npm i merkle-t
 import { MerkleTree, LeafInputs, Leaf } from "merkle-t";
 import { poseidon, randomFieldElement } from "poseidon-h";
 
-class NyLeaf implements LeafInputs {
+class MyLeaf implements LeafInputs {
   private inputs: [bigint, bigint, bigint];
 
   constructor(inputs: [bigint, bigint, bigint]) {
