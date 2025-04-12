@@ -28,7 +28,7 @@
     "fmt": "prettier --write .",
     "fmt:check": "prettier --check .",
     "build": "tsc",
-    "prepare": "rm -rf dist && yarn build",
+    "prepare": "rm -rf dist && yarn build && cp -r circuit dist/circuit",
     "test": "jest"
   },
   "dependencies": {
