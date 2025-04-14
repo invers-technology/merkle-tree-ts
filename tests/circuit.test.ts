@@ -13,6 +13,7 @@ describe("Circuit", () => {
     const { merklePath, merkleWitness } = fullMerkleTree.prove(leaf);
     const circuit = await wasm(
       path.join("tests", "helper", "merkle.test.circom"),
+      { include: path.join("node_modules") },
     );
     const witness = await circuit.calculateWitness({
       inputs: inputs[0].toInputs(),
