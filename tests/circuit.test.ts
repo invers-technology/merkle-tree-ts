@@ -11,7 +11,9 @@ describe("Circuit", () => {
     const leaf = leaves[0];
     const root = fullMerkleTree.root();
     const { merklePath, merkleWitness } = fullMerkleTree.prove(leaf);
-    const circuit = await wasm(path.join("circuit", "merkle.circom"));
+    const circuit = await wasm(
+      path.join("tests", "helper", "merkle.test.circom"),
+    );
     const witness = await circuit.calculateWitness({
       inputs: inputs[0].toInputs(),
       leaf: inputs[0].hash(),

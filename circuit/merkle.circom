@@ -45,5 +45,3 @@ template MerkleTree(nInputs, nDepth) {
     }
     root <== hash[nDepth];
 }
-
-component main = MerkleTree(3, 2);

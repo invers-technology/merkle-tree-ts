@@ -1,4 +1,4 @@
-import { LeafInputs, Leaf } from "../src";
+import { LeafInputs, Leaf } from "../../src";
 import { poseidon, randomFieldElement } from "poseidon-h";
 
 type Inputs = [bigint, bigint, bigint];
