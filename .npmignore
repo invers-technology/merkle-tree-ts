@@ -1,0 +1,11 @@
+.github
+dist
+node_modules
+src
+.env.example
+tests
+.gitignore
+eslint.config.mjs
+jest.config.js
+tsconfig.json
+yarn.lock

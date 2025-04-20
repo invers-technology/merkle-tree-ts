@@ -1,6 +1,6 @@
 {
   "name": "merkle-t",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": {
     "name": "Ash Whitehat",
     "url": "https://github.com/ashwhitehat"
@@ -17,18 +17,21 @@
     "typescript"
   ],
   "license": "Apache-2.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "files": [
-    "dist"
+    "circuit",
+    "*.js",
+    "*.d.ts",
+    "*.map"
   ],
   "private": false,
   "scripts": {
     "lint": "eslint src",
     "fmt": "prettier --write .",
-    "fmt:check": "prettier --check .",
+    "fmt:check": "prettier --check src tests",
     "build": "tsc",
-    "prepare": "rm -rf dist && yarn build && cp -r circuit dist/circuit",
+    "prepare": "rm -rf dist && yarn build && cp -r dist/* .",
     "test": "jest"
   },
   "dependencies": {
