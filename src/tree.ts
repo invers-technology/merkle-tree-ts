@@ -17,11 +17,11 @@ export class MerkleTree {
     inputsLength: number,
     options?: MerkleTreeOptions,
   ) {
-    const log2 = Math.ceil(Math.log2(leaves.length));
-    if (options?.depth && options.depth < log2) {
+    const depthFromLeaves = Math.ceil(Math.log2(leaves.length));
+    if (options?.depth && options.depth < depthFromLeaves) {
       throw new Error("Depth is less than the number of leaves");
     }
-    this.depth = options?.depth ?? log2;
+    this.depth = options?.depth ?? depthFromLeaves;
     this.orderedLeaves = leaves.map((leaf, index) => ({
       index,
       leaf,
