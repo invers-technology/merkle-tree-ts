@@ -5,17 +5,15 @@ type Inputs = [bigint, bigint, bigint];
 
 class TestLeaf implements LeafInputs {
   private inputs: Inputs;
+  public zeroHash: Leaf;
 
   constructor(inputs: Inputs) {
     this.inputs = inputs;
+    this.zeroHash = poseidon(this.inputs.map(() => BigInt(0)));
   }
 
   hash(): Leaf {
     return poseidon(this.inputs);
-  }
-
-  zeroHash(): Leaf {
-    return poseidon(this.inputs.map(() => BigInt(0)));
   }
 
   toInputs(): Inputs {

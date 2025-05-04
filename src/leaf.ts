@@ -1,8 +1,8 @@
 export type Leaf = bigint;
 
 export interface LeafInputs {
+  zeroHash: Leaf;
   hash(): Leaf;
-  zeroHash(): Leaf;
   toInputs(): bigint[];
 }
 

@@ -8,9 +8,9 @@
   "description": "Merkle Tree with Poseidon Hash in TypeScript",
   "repository": {
     "type": "git",
-    "url": "git@github.com:inverse-technology/merkle-tree-ts.git"
+    "url": "git@github.com:invers-technology/merkle-tree-ts.git"
   },
-  "homepage": "https://github.com/inverse-technology/merkle-tree-ts",
+  "homepage": "https://github.com/invers-technology/merkle-tree-ts",
   "keywords": [
     "merkle-tree",
     "merkle-proof",

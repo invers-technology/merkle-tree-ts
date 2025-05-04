@@ -10,27 +10,29 @@ export interface MerkleTreeOptions {
 export class MerkleTree {
   public depth: number;
   public orderedLeaves: OrderedLeaf[];
+  public zeroHash: Leaf;
 
   constructor(
     leaves: Leaf[],
     inputsLength: number,
     options?: MerkleTreeOptions,
   ) {
-    this.depth = options?.depth ?? Math.ceil(Math.log2(leaves.length));
-    const diff = Math.pow(2, this.depth) - leaves.length;
+    const log2 = Math.ceil(Math.log2(leaves.length));
+    if (options?.depth && options.depth < log2) {
+      throw new Error("Depth is less than the number of leaves");
+    }
+    this.depth = options?.depth ?? log2;
     this.orderedLeaves = leaves.map((leaf, index) => ({
       index,
       leaf,
     }));
-    for (let i = 0; i < diff; i++) {
-      this.orderedLeaves.push({
-        index: this.orderedLeaves.length,
-        leaf: poseidon(Array.from({ length: inputsLength }, () => BigInt(0))),
-      });
-    }
+    this.zeroHash = poseidon(
+      Array.from({ length: inputsLength }, () => BigInt(0)),
+    );
   }
 
   root(): Leaf {
+    this.padLeaves();
     let root = this.getLeaves();
     for (let i = 0; i < this.depth; i++) {
       root = chunk(root, 2).map(([a, b]) => poseidon([a, b]));
@@ -39,6 +41,7 @@ export class MerkleTree {
   }
 
   prove(merkleLeaf: Leaf): MerkleProof {
+    this.padLeaves();
     const merklePath = this.merklePath(merkleLeaf);
     let leaves = this.getLeaves();
     const merkleWitness: Leaf[] = [];
@@ -85,6 +88,16 @@ export class MerkleTree {
   getLeaves(): Leaf[] {
     this.orderedLeaves.sort((a, b) => a.index - b.index);
     return this.orderedLeaves.map(({ leaf }) => leaf);
+  }
+
+  private padLeaves(): void {
+    const diff = Math.pow(2, this.depth) - this.orderedLeaves.length;
+    for (let i = 0; i < diff; i++) {
+      this.orderedLeaves.push({
+        index: this.orderedLeaves.length,
+        leaf: this.zeroHash,
+      });
+    }
   }
 
   private merklePath(leaf: Leaf): Binary[] {
