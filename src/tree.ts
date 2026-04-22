@@ -11,6 +11,7 @@ export class MerkleTree {
   public depth: number;
   public orderedLeaves: OrderedLeaf[];
   public zeroHash: Leaf;
+  private nodes: Leaf[][] | null = null;
 
   constructor(
     leaves: Leaf[],
@@ -31,33 +32,71 @@ export class MerkleTree {
     );
   }
 
-  root(): Leaf {
+  private buildNodes(): Leaf[][] {
     this.padLeaves();
-    let root = this.getLeaves();
+    const nodes: Leaf[][] = [this.getLeaves()];
     for (let i = 0; i < this.depth; i++) {
-      root = chunk(root, 2).map(([a, b]) => poseidon([a, b]));
+      const prevLevel = nodes[i];
+      nodes.push(chunk(prevLevel, 2).map(([a, b]) => poseidon([a, b])));
     }
-    return root[0];
+    return nodes;
+  }
+
+  private getNodes(): Leaf[][] {
+    if (!this.nodes) {
+      this.nodes = this.buildNodes();
+    }
+    return this.nodes;
+  }
+
+  protected invalidateCache(): void {
+    this.nodes = null;
+  }
+
+  root(): Leaf {
+    return this.getNodes()[this.depth][0];
   }
 
   prove(merkleLeaf: Leaf): MerkleProof {
-    this.padLeaves();
+    const nodes = this.getNodes();
     const merklePath = this.merklePath(merkleLeaf);
-    let leaves = this.getLeaves();
     const merkleWitness: Leaf[] = [];
-    for (let i = this.depth; i > 0; i--) {
-      const position = toDecimal(merklePath.slice(0, i));
-      const sibilingPosition = position + (merklePath[i - 1] === "1" ? -1 : 1);
-      merkleWitness.push(leaves[sibilingPosition]);
-      leaves = chunk(leaves, 2).map(poseidon);
+
+    let pos = toDecimal(merklePath);
+    for (let level = 0; level < this.depth; level++) {
+      const siblingPos = pos % 2 === 0 ? pos + 1 : pos - 1;
+      merkleWitness.push(nodes[level][siblingPos]);
+      pos = Math.floor(pos / 2);
     }
+
     merklePath.reverse();
     return {
       merklePath,
       merkleWitness,
       merkleLeaf,
-      merkleRoot: this.root(),
+      merkleRoot: nodes[this.depth][0],
     };
+  }
+
+  updateLeaf(index: number, newLeaf: Leaf): void {
+    const nodes = this.getNodes();
+
+    const entry = this.orderedLeaves.find(({ index: i }) => i === index);
+    if (!entry) {
+      throw new Error(`Leaf at index ${index} not found`);
+    }
+    entry.leaf = newLeaf;
+
+    nodes[0][index] = newLeaf;
+
+    let pos = index;
+    for (let level = 1; level <= this.depth; level++) {
+      const parentPos = Math.floor(pos / 2);
+      const left = nodes[level - 1][parentPos * 2];
+      const right = nodes[level - 1][parentPos * 2 + 1];
+      nodes[level][parentPos] = poseidon([left, right]);
+      pos = parentPos;
+    }
   }
 
   static verify(

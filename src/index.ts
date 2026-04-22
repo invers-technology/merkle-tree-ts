@@ -25,13 +25,16 @@ export class FullMerkleTree extends MerkleTree {
       index: this.orderedLeaves.length,
       leaf: leafInput.hash(),
     });
+
+    this.invalidateCache();
   }
 
   update(key: LeafInputs, leafInput: LeafInputs): void {
-    const index = this.leavesInputs.findIndex((leafInput) => leafInput === key);
+    const index = this.leavesInputs.findIndex((li) => li === key);
     if (index === -1) {
       throw new Error("Key not found");
     }
     this.leavesInputs[index] = leafInput;
+    this.updateLeaf(index, leafInput.hash());
   }
 }
