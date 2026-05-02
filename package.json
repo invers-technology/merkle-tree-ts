@@ -1,6 +1,6 @@
 {
   "name": "merkle-t",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "author": {
     "name": "Ash Whitehat",
     "url": "https://github.com/ashwhitehat"
@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "circomlib": "^2.0.5",
-    "poseidon-h": "^0.0.4"
+    "poseidon-h": "^0.0.5"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
