@@ -16,7 +16,6 @@ describe("Circuit", () => {
       { include: path.join("node_modules") },
     );
     const witness = await circuit.calculateWitness({
-      inputs: inputs[0].toInputs(),
       leaf: inputs[0].hash(),
       path: merklePath,
       witness: merkleWitness,

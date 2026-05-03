@@ -4,17 +4,11 @@ include "circomlib/circuits/mux1.circom";
 include "circomlib/circuits/poseidon.circom";
 include "circomlib/circuits/comparators.circom";
 
-template MerkleTree(nInputs, nDepth) {
-    signal input inputs[nInputs];
+template MerkleTree(nDepth) {
     signal input leaf;
     signal input path[nDepth];
     signal input witness[nDepth];
     signal output root;
-
-    // check whether the leaf corresponds to the correct inputs
-    component poseidon = Poseidon(nInputs);
-    poseidon.inputs <== inputs;
-    leaf === poseidon.out;
 
     // initialize the hasher, hash position variables, and intermediate hashed values
     component hasher[nDepth];

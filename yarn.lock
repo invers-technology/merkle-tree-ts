@@ -2748,10 +2748,10 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-poseidon-h@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/poseidon-h/-/poseidon-h-0.0.4.tgz#dd10881219fdcedde970e63f8087c91ed6d55193"
-  integrity sha512-oOINgJQaCugQdZTH3IFul+RvV9o5SOafd5xpQkb2MBJLYS4yNs+sj8UEaodtYYsWae3i2HIldLaQTfWRA99iLg==
+poseidon-h@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/poseidon-h/-/poseidon-h-0.0.5.tgz#398e67ed1657999fa8b4cc1294ef5a91208f01c1"
+  integrity sha512-TRLn94VN5icsT6R9f/emc4M5tWCGfED0jaqyvESLibosLInuDJuvX6wXz9jdRZrTDaH8w5v0yJ38v96eWZnL+Q==
 
 possible-typed-array-names@^1.0.0:
   version "1.1.0"
